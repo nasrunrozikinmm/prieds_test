@@ -19,7 +19,6 @@ async function edit_repcking(req, res) {
       //  find rejected list
       reject_qr_list?.forEach(async (e) => {
         if (item?.payload === e.payload) {
-          //   console.log(item, "itemmmmmmmmmmmmmm");
           item.status = 0;
           item.status_qc = 1;
           item.last_updated = new Date();
@@ -43,9 +42,7 @@ async function edit_repcking(req, res) {
       data: data_by_payload,
       count: data_by_payload.qr_list.length,
     });
-  } catch (error) {
-    console.log("error from edit data packing", error);
-  }
+  } catch (error) {}
 }
 const update_function = async (company_id, data) => {
   await stock_read_log.updateOne({ company_id, _id: data._id }, { $set: data });
@@ -85,11 +82,9 @@ const find_and_remove = (props) => {
   const new_list = [];
   qr_list = qr_list?.filter((item1) => {
     if (!new_qr_list.some((item2) => item1.payload === item2.payload)) {
-      //   console.log(item1, "itemmmmmmmmmmmmmmmmmmmmmmmmmm");
       new_list.push(item1);
     }
   });
-  console.log(new_list);
   return { new_list };
 };
 module.exports = {
